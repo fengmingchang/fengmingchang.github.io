@@ -37,16 +37,58 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.1" />
 
 
-<meta name="description">
+<meta name="description" content="iOS有三种多线程编程技术：
+
+NSThread
+NSOperation
+GCD
+
+它们的抽象程度由低到高，越高的使用起来越简单。
+##NSThread
+###显示调用NSThread类
+
+类方法
+
+1[NSThread detachNewThreadSelector:@selector(doSomething:)toTarget:self withObject:@&quot;hi&quot;];
+
+实例方法12NS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="冯明昌">
-<meta property="og:url" content="http://yoursite.com/2015/10/10/冯明昌/index.html">
+<meta property="og:title" content="iOS多线程技术">
+<meta property="og:url" content="http://yoursite.com/2015/10/11/多线程知识的应用/index.html">
 <meta property="og:site_name" content="FengMingChang">
-<meta property="og:description">
-<meta property="og:updated_time" content="2015-10-10T07:40:47.000Z">
+<meta property="og:description" content="iOS有三种多线程编程技术：
+
+NSThread
+NSOperation
+GCD
+
+它们的抽象程度由低到高，越高的使用起来越简单。
+##NSThread
+###显示调用NSThread类
+
+类方法
+
+1[NSThread detachNewThreadSelector:@selector(doSomething:)toTarget:self withObject:@&quot;hi&quot;];
+
+实例方法12NS">
+<meta property="og:updated_time" content="2015-10-11T11:28:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="冯明昌">
-<meta name="twitter:description">
+<meta name="twitter:title" content="iOS多线程技术">
+<meta name="twitter:description" content="iOS有三种多线程编程技术：
+
+NSThread
+NSOperation
+GCD
+
+它们的抽象程度由低到高，越高的使用起来越简单。
+##NSThread
+###显示调用NSThread类
+
+类方法
+
+1[NSThread detachNewThreadSelector:@selector(doSomething:)toTarget:self withObject:@&quot;hi&quot;];
+
+实例方法12NS">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -56,7 +98,7 @@
   };
 </script>
 
-  <title> 冯明昌 | FengMingChang </title>
+  <title> iOS多线程技术 | FengMingChang </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -155,7 +197,7 @@
           
           
             
-              冯明昌
+              iOS多线程技术
             
           
         </h1>
@@ -164,8 +206,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-10-10T15:40:47+08:00" content="2015-10-10">
-            2015-10-10
+          <time itemprop="dateCreated" datetime="2015-10-11T17:32:16+08:00" content="2015-10-11">
+            2015-10-11
           </time>
         </span>
 
@@ -183,7 +225,48 @@
       
 
       
-        <span itemprop="articleBody"></span>
+        <span itemprop="articleBody"><p>iOS有三种多线程编程技术：</p>
+<ul>
+<li>NSThread</li>
+<li>NSOperation</li>
+<li>GCD</li>
+</ul>
+<p>它们的抽象程度由低到高，越高的使用起来越简单。</p>
+<p>##NSThread</p>
+<p>###显示调用NSThread类</p>
+<ul>
+<li>类方法</li>
+</ul>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[NSThread <span class="string">detachNewThreadSelector:</span><span class="annotation">@selector</span>(<span class="string">doSomething:</span>)<span class="string">toTarget:</span>self <span class="string">withObject:</span>@<span class="string">"hi"</span>];</span><br></pre></td></tr></table></figure>
+<ul>
+<li>实例方法<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSThread *thread = [[NSThread alloc]<span class="string">initWithTarget:</span><span class="string">selfselector:</span><span class="annotation">@selector</span>(<span class="string">doSomething:</span>) <span class="string">object:</span>@<span class="string">"hi"</span>]; </span><br><span class="line"> [thread start];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>##隐式调用</p>
+<ul>
+<li>开启后台线程</li>
+</ul>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[self <span class="string">performSelectorInBackground:</span><span class="annotation">@selector</span>(<span class="string">doSomething:</span>)<span class="string">withObject:</span>@<span class="string">"hi"</span>];</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>在主线程中运行</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[self <span class="string">performSelectorOnMainThread:</span><span class="annotation">@selector</span>(<span class="string">doSomething:</span>)<span class="string">withObject:</span>@<span class="string">"hi"</span> <span class="string">waitUntilDone:</span>YES];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在指定线程中执行，但该线程必须具备run loop</p>
+</li>
+</ul>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">￼￼￼[self <span class="string">performSelector:</span>:<span class="annotation">@selector</span>(<span class="string">doingSomething:</span>) <span class="string">onThread:</span>thread <span class="string">withObject:</span>@<span class="string">"hi"</span> <span class="string">waitUntilDone:</span>YES];</span><br></pre></td></tr></table></figure>
+<p>##常见NSThread的方法</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">￼￼+(<span class="built_in">NSThread</span> *)currentThread;<span class="comment">//获得当前线程</span></span><br><span class="line">+(<span class="keyword">void</span>)sleepForTimeInterval:(<span class="built_in">NSTimeInterval</span>)ti;<span class="comment">//线程休眠</span></span><br><span class="line">+(<span class="built_in">NSThread</span> *)mainThread;<span class="comment">//主线程，亦即UI线程</span></span><br><span class="line">-(<span class="built_in">BOOL</span>)isMainThread;</span><br><span class="line">+(<span class="built_in">BOOL</span>)isMainThread;<span class="comment">//当前线程是否是主线程</span></span><br><span class="line">-(<span class="built_in">BOOL</span>)isExecuting;<span class="comment">//线程是否正在运行</span></span><br><span class="line">-(<span class="built_in">BOOL</span>)isFinished;<span class="comment">//线程师傅已结束</span></span><br></pre></td></tr></table></figure>
+<p>##NSOperation</p>
+<ul>
+<li><h5 id="NSInvocationOperation">NSInvocationOperation</h5></li>
+</ul>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建一个队列</span></span><br><span class="line">NSOperationQueue queue = [[NSOperationQueue alloc]init];</span><br><span class="line"><span class="comment">//创建子任务，定义子任务必须是NSOperation的子类</span></span><br><span class="line">￼￼NSInvocationOperation operation = [[NSInvocationOperation alloc]<span class="string">initWithTarget:</span>self <span class="string">selector:</span><span class="annotation">@selector</span>(<span class="string">doSomething:</span>)<span class="string">object:</span>@<span class="string">"hi"</span>];</span><br><span class="line"><span class="comment">//当把任务添加到队列后，自动开启线程。</span></span><br><span class="line">[queue <span class="string">addOperation:</span>operation];</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h5 id="NSBlockOperation">NSBlockOperation</h5></li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建一个队列</span></span><br><span class="line"><span class="built_in">NSOperationQueue</span> queue = [[<span class="built_in">NSOperationQueue</span> alloc]init];</span><br><span class="line"><span class="comment">//创建NSBlockOperation对象</span></span><br><span class="line">￼￼<span class="built_in">NSBlockOperation</span> operation ＝ [<span class="built_in">NSBlockOperation</span> blockOperationWithBlock:^&#123;[<span class="keyword">self</span> doSomething];</span><br><span class="line">&#125;]</span><br><span class="line"><span class="comment">//加入队列</span></span><br><span class="line">[queque addOperation:operation];</span><br></pre></td></tr></table></figure>
+</span>
       
     </div>
 
@@ -194,13 +277,13 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/10/12/Mac的搭建hexo/" rel="prev">Mac的搭建hexo</a>
+              <a href="/2015/10/11/本地通知/" rel="prev">本地通知</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/10/10/hello-world/" rel="next">Hello World</a>
+              <a href="/2015/10/11/Git快捷方式/" rel="next">Git操作</a>
             
           </div>
         </div>
@@ -262,7 +345,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -314,7 +397,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#NSInvocationOperation"><span class="nav-number">1.</span> <span class="nav-text">NSInvocationOperation</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#NSBlockOperation"><span class="nav-number">2.</span> <span class="nav-text">NSBlockOperation</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
